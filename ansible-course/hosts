@@ -1,0 +1,8 @@
+[controlhost]
+ansiblecontrol.skov.run
+
+[webservers]
+ansible1
+
+[databaseservers]
+ansible2

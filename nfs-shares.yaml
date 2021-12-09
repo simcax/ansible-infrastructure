@@ -1,0 +1,22 @@
+- hosts: nfsserver
+  remote_user: "{{ user }}"
+  become: yes
+  vars:
+    src_dir: "{{ playbook_dir }}"
+  vars_files:
+    "{{ src_dir }}/conf/nfsserver.yml"
+  tasks:
+    - name: "Create Shares"
+      file:
+        path: "{{ item }}"
+        state: directory
+        owner: ubuntu
+        group: ubuntu
+      loop: "{{ nfsShares }}"
+    - name: "Add shares in exports file"
+      lineinfile:
+        path: /etc/exports
+        line: "{{ item }} *(rw,sync,no_subtree_check,insecure)"
+      loop: "{{ nfsShares }}"
+    - name: "Reload NFS Exports"
+      command: exportfs -ra

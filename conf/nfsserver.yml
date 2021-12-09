@@ -1,0 +1,6 @@
+user: ubuntu
+nfsShares:
+  - /data/nfs/skov-codes-data
+  - /data/nfs/skov-ghost-data
+  - /data/nfs/drone-postgres-data
+  - /data/nfs/drone-data

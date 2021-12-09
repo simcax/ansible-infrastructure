@@ -1,0 +1,15 @@
+
+- hosts: kubenodes
+  remote_user: "{{ user }}"
+  become: yes
+  vars: 
+    src_dir: "{{ playbook_dir }}"
+  vars_files:
+    - "{{ src_dir }}/conf/heartbeat.yml"
+  tasks:
+    - name: "Add Crontab"
+      cron:
+        name: "Uptimerobot heartbeat"
+        minute: "*/1"
+        hour: "*"
+        job: "wget --spider \"{{ heartbeaturl }}\" >/dev/null 2>&1" 
